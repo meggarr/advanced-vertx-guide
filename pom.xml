@@ -12,10 +12,10 @@
 
   <groupId>com.julienviet</groupId>
   <artifactId>advanced-vertx-guide</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-v3.7</version>
 
   <properties>
-    <stack.version>3.6.0.CR1</stack.version>
+    <stack.version>3.7.1</stack.version>
     <asciidoc.dir>${project.basedir}/src/main/asciidoc</asciidoc.dir>
   </properties>
 
@@ -55,7 +55,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-memcache</artifactId>
-      <version>4.1.19.Final</version>
+      <version>4.1.34.Final</version>
     </dependency>
   </dependencies>
 

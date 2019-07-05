@@ -29,7 +29,7 @@ public interface TimeServer {
    *
    * @param port the server port
    * @param host the server host
-   * @param listenHandler the listen result handler
+   * @param listenHandler the listen (bind) result handler
    */
   void listen(int port, String host, Handler<AsyncResult<Void>> listenHandler);
 

@@ -60,7 +60,7 @@ public class TimeServerImpl implements TimeServer {
     bootstrap.group(acceptorGroup, eventLoop);
     bootstrap.childHandler(new ChannelInitializer<Channel>() {
       @Override
-      protected void initChannel(Channel ch) throws Exception {
+      protected void initChannel(Channel ch) {
         ChannelPipeline pipeline = ch.pipeline(); // <4>
         TimeServerHandler handler = new TimeServerHandler(context, requestHandler);
         pipeline.addLast(handler);
@@ -70,21 +70,16 @@ public class TimeServerImpl implements TimeServer {
 
   private void bind(String host, int port, Handler<AsyncResult<Void>> listenHandler) {
     ChannelFuture bindFuture = bootstrap.bind(host, port);
-    bindFuture.addListener(new ChannelFutureListener() {
-      @Override
-      public void operationComplete(ChannelFuture future) {
-        context.executeFromIO(v -> { // <1>
+    bindFuture.addListener((ChannelFutureListener) future -> context.executeFromIO(v -> { // <1>
 
-          //
-          if (future.isSuccess()) {
-            channel = future.channel();
-            listenHandler.handle(Future.succeededFuture(null));
-          } else {
-            listenHandler.handle(Future.failedFuture(future.cause()));
-          }
-        });
+      //
+      if (future.isSuccess()) {
+        channel = future.channel();
+        listenHandler.handle(Future.succeededFuture(null));
+      } else {
+        listenHandler.handle(Future.failedFuture(future.cause()));
       }
-    });
+    }));
   }
 
   @Override

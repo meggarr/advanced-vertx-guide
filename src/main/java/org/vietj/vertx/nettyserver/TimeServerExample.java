@@ -11,9 +11,7 @@ public class TimeServerExample {
 
     // Create the time server
     TimeServer server = TimeServer.create(vertx);
-    server.requestHandler(time -> {
-      time.complete(System.currentTimeMillis());
-    });
+    server.requestHandler(time -> time.complete(System.currentTimeMillis()));
 
     // Start the server
     server.listen(8037, "0.0.0.0", ar -> {
